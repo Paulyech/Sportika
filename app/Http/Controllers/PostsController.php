@@ -13,7 +13,7 @@ class PostsController extends Controller
     public function index()
     {
         return view('posts.index', [
-            'Posts'=> Post::latest()->filter(request(['tag','search']))-> get()
+            'Posts'=> Post::latest()->filter(request(['tag','search']))-> paginate(5)
         ]);
     }
     /**
@@ -50,8 +50,11 @@ class PostsController extends Controller
             'body'=> 'required'
 
         ]);
+        if ($request->hasFile('coverImage')) {
+            $formFields ['coverImage'] = $request->file('coverImage')->store('coverImages','public');
+        }
         Post::create($formFields);
-        return redirect('/');
+        return redirect('/')->with('success','Post created succesfully!');
     }
 
     
@@ -60,17 +63,29 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Post $Post)
     {
-        //
+        return view('posts.edit',['Post'=>$Post]);
+        // $post = Post::find($id);
+        // return view('posts.edit')->with('Post',$post);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Post $Post)
     {
-        //
+        $formFields = $request -> validate([
+            'title'=> 'required',
+            'tags'=> 'required',
+            'body'=> 'required'
+
+        ]);
+        if ($request->hasFile('coverImage')) {
+            $formFields ['coverImage'] = $request->file('coverImage')->store('coverImages','public');
+        }
+        $Post->update($formFields);
+        return back()->with('success','Post updated succesfully!');
     }
 
     /**

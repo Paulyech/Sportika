@@ -19,13 +19,17 @@ use Illuminate\Support\Facades\Route;
 // show all posts
 Route::get('/', [PostsController::class,'index']);
 
-// create post
+// show create form
 Route::get('/posts/create',[PostsController::class,'create']);
-
-
 
 // store data
 Route::post('/posts',[PostsController::class,'store']);
+
+// show edit form
+Route::get('/posts/{Post}/edit',[PostsController::class,'edit']);
+
+// update form
+Route::put('/posts/{Post}',[PostsController::class,'update']);
 
 
 

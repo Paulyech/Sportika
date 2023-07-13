@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('tags');
+            $table->string('coverImage')->nullable();
             $table->longText('body');
             $table->timestamps();
         });
