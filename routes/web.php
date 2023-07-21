@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\PostsController;
 
 
 /*
@@ -31,9 +32,17 @@ Route::get('/posts/{Post}/edit',[PostsController::class,'edit']);
 // update form
 Route::put('/posts/{Post}',[PostsController::class,'update']);
 
-
-
-
+// update form
+Route::delete('/posts/{Post}',[PostsController::class,'destroy']);
 
 // show single post
 Route::get('/posts/{id}',[PostsController::class,'show']);
+
+//register 
+Route::get('/register',[UserController::class,'create']);
+
+//create new user
+Route::post('/users',[UserController::class,'store']);
+
+// logout user 
+Route::post('/logout',[UserController::class,'logout']);

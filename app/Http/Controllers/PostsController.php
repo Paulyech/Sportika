@@ -85,14 +85,15 @@ class PostsController extends Controller
             $formFields ['coverImage'] = $request->file('coverImage')->store('coverImages','public');
         }
         $Post->update($formFields);
-        return back()->with('success','Post updated succesfully!');
+        return redirect('/')->with('success','Post updated succesfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Post $Post)
     {
-        //
+        $Post->delete();
+        return redirect('/')->with('success','Post deleted succesfully!');
     }
 }
