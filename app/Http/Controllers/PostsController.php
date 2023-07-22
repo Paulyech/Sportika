@@ -78,7 +78,8 @@ class PostsController extends Controller
         $formFields = $request -> validate([
             'title'=> 'required',
             'tags'=> 'required',
-            'body'=> 'required'
+            'body'=> 'required',
+            'user_id'=>'',
 
         ]);
         if ($request->hasFile('coverImage')) {
