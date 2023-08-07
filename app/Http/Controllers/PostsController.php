@@ -89,6 +89,10 @@ class PostsController extends Controller
      */
     public function update(Request $request, Post $Post)
     {
+        // make sure logged in user is owner
+        if ($Post->user_id != auth()->id()) {
+            abort(403,'Unauthorized Action');
+        }
         $formFields = $request -> validate([
             'title'=> 'required',
             'tags'=> 'required',
