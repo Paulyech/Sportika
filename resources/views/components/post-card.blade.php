@@ -3,7 +3,7 @@
     <div class="flex">
         <img
             class="hidden w-48 mr-6 md:block"
-            src="{{ $post->coverImage ? asset('storage/'. $post->coverImage) : asset('images/no-image.png')}}"
+            src="{{ $Post->coverImage ? asset('storage/'. $Post->coverImage) : asset('images/no-image.png')}}"
             alt=""
         />
         <div>
@@ -13,7 +13,7 @@
             <div class="text-xl mb-4"> {{$Post->body}} </div>
             <x-post-tags :tagsCsv="$Post->tags"/>
 
-            <small>Written on  {{$Post->created_at}} </small>
+            <small>Written on  {{$Post->created_at}} By <span class="font-bold">{{$Post->user->name}}</span>  </small>
             
             
         </div>
