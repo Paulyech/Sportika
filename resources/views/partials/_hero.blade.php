@@ -10,15 +10,20 @@
                 <h1 class="text-6xl font-bold uppercase text-white">
                     Sportika<span class="text-black">KE</span>
                 </h1>
+                @auth
+                 
                 <p class="text-2xl text-gray-200 font-bold my-4">
                     Find or post articles
                 </p>
+                @else
                 <div>
+
                     <a
-                        href="register.html"
+                        href="/register"
                         class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black"
                         >Sign Up to Post an Article</a
                     >
                 </div>
+                @endauth
             </div>
         </section>

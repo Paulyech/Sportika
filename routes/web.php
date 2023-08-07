@@ -35,6 +35,9 @@ Route::put('/posts/{Post}',[PostsController::class,'update'])->middleware('auth'
 // update form
 Route::delete('/posts/{Post}',[PostsController::class,'destroy'])->middleware('auth');
 
+//Manage post
+Route::get('posts/manage',[PostsController::class,'manage'])->middleware('auth');
+
 // show single post
 Route::get('/posts/{id}',[PostsController::class,'show']);
 

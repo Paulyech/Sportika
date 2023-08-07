@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -53,7 +55,19 @@ class PostsController extends Controller
         if ($request->hasFile('coverImage')) {
             $formFields ['coverImage'] = $request->file('coverImage')->store('coverImages','public');
         }
-        Post::create($formFields);
+        // Post::create($formFields);
+
+       
+            $newPost = new Post();
+
+            $newPost->user_id = Auth::user()->id; // Assuming you have an authenticated user
+            $newPost->title = $request->input('title');
+            $newPost->tags = $request->input('tags');
+            $newPost->coverImage = $request->input('coverImage');
+            $newPost->body = $request->input('body');
+
+            $newPost->save();
+
         return redirect('/')->with('success','Post created succesfully!');
     }
 
@@ -96,5 +110,9 @@ class PostsController extends Controller
     {
         $Post->delete();
         return redirect('/')->with('success','Post deleted succesfully!');
+    }
+
+    public function manage(){
+        return view('posts.manage',['posts'=>auth()->user()->posts()->get()]);
     }
 }
